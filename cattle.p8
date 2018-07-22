@@ -6,39 +6,47 @@ turn = 1
 text_height = 5
 margin = 10
 padding = 4
+game = {
+  state = "think"
+}
 menus = {
-  main = {
-    options = {
-      { 
-        name = "attack",
-        use = function (target)
-          -- body
-        end
-      },
-      {
-        name = "defend",
-        use = function (target)
-          -- body
-        end
-      },
-      {
-        name = "toggle zoom",
-        use = function (target)
-          if peek(0x5f2c) == 3 then
-            poke(0x5f2c, 0)
-          else
-            poke(0x5f2c, 3)
-          end
-        end
-      }
+  action = {
+    {
+      name = "attack",
+      use = function (target)
+        target.hitpoints = target.hitpoints - 1
+      end
+    },
+    {
+      name = "defend",
+      use = function (target)
+        -- body
+      end
+    },
+    {
+      name = "run",
+      use = function (target)
+        -- body
+      end
     }
   }
 }
-options = menus.main.options
+menu = menus.action
+player = {
+  hitpoints = 10
+}
+enemy = {
+  hitpoints = 10
+}
+initiative = {
+  player,
+  enemy
+}
+actions = {}
 cursor = {
   selection = 1,
   draw = function ()
-    local offset = wave(2) + 2
+    local offset = wave(2)
     local location = (cursor.selection * (text_height + padding)) - (text_height + padding)
 
     -- show the cursor based on the current selection
@@ -54,26 +62,36 @@ function _init()
 end
 
 function _update()
-  if btnp(⬆️) then
-    -- check if moving the cursor should underflow the selection
-    if cursor.selection - 1 < 1 then
-      cursor.selection = count(options)
-    else
-      cursor.selection = cursor.selection - 1
+  if game.state == "think" then
+    if btnp(⬆️) then
+      -- check if moving the cursor should underflow the selection
+      if cursor.selection - 1 < 1 then
+        cursor.selection = count(menu)
+      else
+        cursor.selection = cursor.selection - 1
+      end
     end
-  end
 
-  if btnp(⬇️) then
-    -- check if moving the cursor should overflow the selection
-    if cursor.selection + 1 > count(options) then
-      cursor.selection = 1
-    else
-      cursor.selection = cursor.selection + 1
+    if btnp(⬇️) then
+      -- check if moving the cursor should overflow the selection
+      if cursor.selection + 1 > count(menu) then
+        cursor.selection = 1
+      else
+        cursor.selection = cursor.selection + 1
+      end
     end
-  end
 
-  if btnp(🅾️) then
-    options[cursor.selection].use()
+    if btnp(🅾️) then
+      add(actions, menu[cursor.selection].use)
+      game.state = "fight"
+    end
+  elseif game.state == "fight" then
+    for key, action in pairs(actions) do
+      action(enemy)
+      del(actions, action)
+    end
+
+    game.state = "think"
   end
 end
 
@@ -82,8 +100,13 @@ function _draw()
 
   cursor.draw()
 
-  -- output a list of options for the player
-  for key, option in pairs(options) do
+  for key, combatant in pairs(initiative) do
+    local location = (key * (text_height + padding)) - text_height + padding
+    print(combatant.hitpoints.."hp", 32, location + screen.size / 2)
+  end
+
+  -- output a list of options for the player depending on the current menu
+  for key, option in pairs(menu) do
     -- the y location of this item in the list
     local location = (key * (text_height + padding)) - (text_height + padding)
     local colour = 5 -- dark gray
@@ -103,7 +126,7 @@ end
 -->8
 
 function wave(height)
-  return sin(time()) * height
+  return sin(time()) * height + height
 end
 __gfx__
 00000000880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

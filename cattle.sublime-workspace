@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"wa",
+				"wave_height"
+			],
+			[
+				"cursor",
+				"cursor.selection"
+			],
+			[
+				"cur",
+				"cursor.selection"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"tex",
+				"text_height"
+			],
+			[
+				"curs",
+				"cursor.selection"
+			],
+			[
+				"loca",
+				"location"
+			],
+			[
 				"SOUR",
 				"SOURCES"
 			],
@@ -453,17 +481,6 @@
 			]
 		]
 	},
-	"buffers":
-	[
-		{
-			"file": "cattle.p8",
-			"settings":
-			{
-				"buffer_size": 62,
-				"line_ending": "Unix"
-			}
-		}
-	],
 	"build_system": "Packages/Lua Love/LuaLove.sublime-build",
 	"build_system_choices":
 	[
@@ -475,6 +492,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"lua",
+				"Set Syntax: Lua"
+			],
+			[
+				"lu",
+				"Set Syntax: Lua"
+			],
 			[
 				"ad",
 				"Project: Add Folder"
@@ -506,14 +531,6 @@
 			[
 				"save proj",
 				"Project: Save As"
-			],
-			[
-				"lu",
-				"Set Syntax: Lua"
-			],
-			[
-				"lua",
-				"Set Syntax: Lua"
 			],
 			[
 				"remo",
@@ -726,12 +743,12 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/D/MEGA/PICO-8/carts/projects/cattle"
-	],
 	"file_history":
 	[
+		"/D/MEGA/PICO-8/carts/projects/cattle/buttons.txt",
+		"/D/MEGA/PICO-8/carts/projects/cattle/cattle.p8",
+		"/D/MEGA/PICO-8/carts/projects/cattle/.editorconfig",
+		"/D/MEGA/PICO-8/carts/projects/cattle/.gitignore",
 		"/D/MEGA/PROJECTS/wren-cmake-test/debug.bat",
 		"/D/MEGA/PROJECTS/wren-cmake/src/vm/wren_common.h",
 		"/D/MEGA/PROJECTS/wren-cmake/CMakeLists.txt",
@@ -855,15 +872,11 @@
 		"/D/XAMPP/htdocs/codeigniter/3.1.8/application/views/welcome_message.php",
 		"/D/XAMPP/htdocs/thundertome/application/views/journal/results.html",
 		"/D/XAMPP/htdocs/thundertome/application/views/journal/search_bar.html",
-		"/D/XAMPP/htdocs/thundertome/application/views/journal/search/search_bar.html",
-		"/D/XAMPP/htdocs/thundertome/application/config/routes.php",
-		"/D/XAMPP/htdocs/thundertome/application/views/boilerplate.html",
-		"/D/XAMPP/htdocs/thundertome/thundertome.sql",
-		"/C/Users/user/AppData/Local/Temp/fz3temp-2/database.php"
+		"/D/XAMPP/htdocs/thundertome/application/views/journal/search/search_bar.html"
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 41.0
 	},
 	"find_in_files":
 	{
@@ -879,6 +892,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"h",
+			"4",
+			"5",
+			"spacing",
 			"shared",
 			"wren_opt_",
 			"WREN_OPT_META",
@@ -924,43 +941,6 @@
 		"whole_word": false,
 		"wrap": true
 	},
-	"groups":
-	[
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 0,
-					"file": "cattle.p8",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 62,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								62,
-								62
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
-			]
-		}
-	],
 	"incremental_find":
 	{
 		"height": 28.0
@@ -997,7 +977,6 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
-	"project": "cattle.sublime-project",
 	"replace":
 	{
 		"height": 52.0
@@ -1009,6 +988,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"ca",
+				"cattle.p8"
+			],
 			[
 				"b",
 				"wren-cmake\\build.bat"
@@ -1406,14 +1389,13 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
 	"settings":
 	{
 	},
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 239.0,
 	"status_bar_visible": true,
 	"template_settings":

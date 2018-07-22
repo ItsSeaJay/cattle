@@ -4,6 +4,8 @@ __lua__
 
 turn = 1
 text_height = 5
+margin = 12
+padding = 4
 options = {
   { 
     name = "attack",
@@ -25,7 +27,14 @@ options = {
   }
 }
 cursor = {
-  selection = 1
+  selection = 1,
+  draw = function ()
+    local offset = wave() * 3 + 3
+    local location = (cursor.selection * (text_height + padding)) - (text_height + padding)
+
+    -- show the cursor based on the current selection
+    spr(1, offset, margin + location)
+  end
 }
 width = 128
 height = width
@@ -57,21 +66,30 @@ end
 function _draw()
   cls()
 
-  -- how far from the edge of the screen the text is
-  local margin = 12
-  -- how far apart the text should be from the next item in the list
-  local padding = 4
-
-  -- show the cursor based on the current selection
-  spr(1, 1, margin + (cursor.selection * (text_height + padding)) - (text_height + padding))
+  cursor.draw()
 
   -- output a list of options for the player
   for key, option in pairs(options) do
     -- the y location of this item in the list
     local location = (key * (text_height + padding)) - (text_height + padding)
+    local colour = 5 -- dark gray
 
-    print(option.name, margin, location + margin)
+    -- display the text differently if it's been selected
+    if key == cursor.selection then
+      -- highlight that option using position, colour and a shadow
+      print(option.name, margin, location + margin, 6)
+      colour = 7 -- white
+      location = location - 1
+    end
+
+    print(option.name, margin, location + margin, colour)
   end
+end
+
+-->8
+
+function wave()
+  return sin(time())
 end
 __gfx__
 00000000880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

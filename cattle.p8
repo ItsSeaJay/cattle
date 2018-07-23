@@ -42,6 +42,7 @@ function battle:init()
 end
 
 function battle:update()
+	-- battle using the owner of the current turn
  self.combatants[self.turn]:battle()
 end
 
@@ -53,6 +54,7 @@ end
 
 player = {
 	hitpoints = 10,
+	team = "heroes",
 	x = screen.size / 3,
 	y = screen.size / 2,
 	colour = 9 -- orange
@@ -71,6 +73,7 @@ end
 
 enemy = {
 	hitpoints = 10,
+	team = "villains",
 	x = screen.size / 3 * 2,
 	y = screen.size / 2,
 	colour = 7 -- white

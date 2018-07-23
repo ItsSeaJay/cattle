@@ -2,10 +2,13 @@ pico-8 cartridge // http://www.pico-8.com
 version 16
 __lua__
 
+-- cattle
+-- by sea jay
+
 screen = {
 	size = 128
 }
--- this refers to the system font
+-- this refers to the dimensions of the system font
 text = {
 	width = 3,
 	height = 5
@@ -40,9 +43,12 @@ end
 
 -->8
 
+-- battle
+
 battle = {
 	turn = 1,
-	combatants = {}
+	combatants = {},
+	teams = {}
 }
 
 function battle:init()
@@ -57,6 +63,10 @@ end
 
 function battle:advance()
  turn = turn + 1
+end
+
+function get_teams()
+ -- todo: get the teams participating in the battle
 end
 
 -->8
@@ -79,6 +89,8 @@ function player:draw()
 end
 
 -->8
+
+-- enemy
 
 enemy = {
 	hitpoints = 10,
@@ -128,7 +140,10 @@ menu = {
 	options = {},
 	visible = true,
 	margin = 12,
-	padding = 4
+	padding = 4,
+	cursor = { -- note: this appears to be a reserved keyword
+
+	}
 }
 
 function menu:draw()

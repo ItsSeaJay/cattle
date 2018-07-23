@@ -7,9 +7,7 @@ screen = {
 }
 
 function _init()
-	battle:push_state(function ()
-	 print("ashens is skill")
-	end)
+	battle:init()
 end
 
 function _update()
@@ -17,60 +15,74 @@ function _update()
 end
 
 function _draw()
+	cls()
 
+	player:draw()
+	enemy:draw()
 end
 
 -->8
 
 -- utility functions
 
-function wave(height)
-	return sin(time()) * height + height
+function wave(wavelength)
+	return sin(time()) * wavelength + wavelength
 end
 
 -->8
 
 battle = {
-	states = {},
-	state = 1,
 	turn = 1,
 	combatants = {}
 }
 
+function battle:init()
+ add(self.combatants, player)
+ add(self.combatants, enemy)
+end
+
 function battle:update()
- self.states[self.state]()
-end
-
-function battle:push_state(state)
- add(self.states, state)
-end
-
-function battle:pop_state(state)
- del(self.states, state)
-end
-
-function battle:get_next_state()
- if self.state + 1 > count(states) then
- 	return self.states[1]
- else
- 	return self.states[self.state + 1]
- end
-end
-
-function battle:get_last_state()
- if self.state - 1 < 1 then
- 	return self.states[1]
- else
- 	return self.states[self.state + 1]
- end
+ self.combatants[self.turn]:battle()
 end
 
 function battle:advance()
- if self.state + 1 > count(states) then
- 	self.state = 1
- else
- 	self.state = self.state + 1
- end
+ turn = turn + 1
+end
+
+-->8
+
+player = {
+	hitpoints = 10,
+	x = screen.size / 3,
+	y = screen.size / 2,
+	colour = 9 -- orange
+}
+
+function player:battle()
+ 
+end
+
+function player:draw()
+ print(self.hitpoints, self.x, self.y - 6, self.colour)
+ print("🐱", self.x, self.y, self.colour)
+end
+
+-->8
+
+enemy = {
+	hitpoints = 10,
+	x = screen.size / 3 * 2,
+	y = screen.size / 2,
+	colour = 7 -- white
+}
+
+function enemy:battle()
+ 
+end
+
+function enemy:draw()
+ print(self.hitpoints, self.x, self.y - 6, self.colour)
+ print("🐱", self.x, self.y, self.colour)
 end
 
 __gfx__

@@ -5,6 +5,11 @@ __lua__
 screen = {
 	size = 128
 }
+-- this refers to the system font
+text = {
+	width = 3,
+	height = 5
+}
 
 function _init()
 	battle:init()
@@ -16,6 +21,10 @@ end
 
 function _draw()
 	cls()
+
+	if menu.visible then
+		menu:draw()
+	end
 
 	player:draw()
 	enemy:draw()
@@ -43,7 +52,7 @@ end
 
 function battle:update()
 	-- battle using the owner of the current turn
- self.combatants[self.turn]:battle()
+ self.combatants[self.turn % count(self.combatants) + 1]:battle()
 end
 
 function battle:advance()
@@ -86,6 +95,46 @@ end
 function enemy:draw()
  print(self.hitpoints, self.x, self.y - 6, self.colour)
  print("🐱", self.x, self.y, self.colour)
+end
+
+-->8
+
+menus = {
+	player = {
+		options = {
+			{
+				name = "attack",
+				use = function ()
+				 
+				end
+			},
+			{
+				name = "defend",
+				use = function ()
+				 
+				end
+			},
+			{
+				name = "escape",
+				use = function ()
+				 
+				end
+			}
+		}
+	}
+}
+
+menu = {
+	options = {},
+	visible = true,
+	margin = 12,
+	padding = 4
+}
+
+function menu:draw()
+ for option in all(menu.options) do
+  -- loop code
+ end
 end
 
 __gfx__

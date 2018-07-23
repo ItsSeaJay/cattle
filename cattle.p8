@@ -25,13 +25,20 @@ end
 
 function _update()
 	battle:update()
+
+	if menu.visible then
+		menu:update()
+	end
 end
 
 function _draw()
 	cls()
 
+	if menu.visible then
+		menu:draw()
+	end
+
 	battle:draw()
-	menu:draw()
 
 	if mode == modes.debug then
 		-- print a whole host of information useful for debugging
@@ -51,6 +58,7 @@ end
 
 -- utility functions
 
+-- useful for positioning objects that move in a wave-like pattern
 function wave(wavelength)
 	return sin(time()) * wavelength + wavelength
 end
@@ -109,6 +117,10 @@ player = {
 
 function player:battle()
  -- allow the player to move the menu cursor
+ if btnp(⬇️) then
+ 	-- move the cursor down
+ 	menu.cursor.selection = menu.cursor.selection % count(menu.options) + 1
+ end
 end
 
 function player:draw()
@@ -183,8 +195,12 @@ menu = {
 	}
 }
 
+function menu:update()
+	menu.cursor.y = (menu.cursor.selection * (text.height + self.padding)) - (text.height + self.padding)
+end
+
 function menu:draw()
-	spr(menu.cursor.sprite, menu.cursor.x, menu.cursor.y)
+	spr(menu.cursor.sprite, wave(2), menu.cursor.y + self.margin)
 
 	-- draw the options available to the player
  for key, option in pairs(self.options) do

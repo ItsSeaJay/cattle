@@ -117,9 +117,20 @@ player = {
 
 function player:battle()
  -- allow the player to move the menu cursor
+ if btnp(⬆️) then
+ 	if menu.cursor.selection <= 1 then
+ 		menu.cursor.selection = count(menu.options)
+ 	else
+ 		menu.cursor.selection = menu.cursor.selection - 1
+ 	end
+ end
+
  if btnp(⬇️) then
- 	-- move the cursor down
- 	menu.cursor.selection = menu.cursor.selection % count(menu.options) + 1
+ 	if menu.cursor.selection >= count(menu.options) then
+ 		menu.cursor.selection = 1
+ 	else
+ 		menu.cursor.selection = menu.cursor.selection + 1
+ 	end
  end
 end
 
@@ -200,13 +211,22 @@ function menu:update()
 end
 
 function menu:draw()
+	-- draw the cursor
 	spr(menu.cursor.sprite, wave(2), menu.cursor.y + self.margin)
 
 	-- draw the options available to the player
  for key, option in pairs(self.options) do
  	local x = self.margin
   local y = (key * (text.height + self.padding)) - (text.height + self.padding)
-  local colour = 6 -- light grey
+  local colour = 5 -- dark grey
+
+  if menu.cursor.selection == key then
+  	-- highlight that option and cast a shadow
+  	colour = 6 -- light grey
+  	print(option.name, x, y + self.margin, colour)
+  	y = y - 1
+  	colour = 7 -- white
+  end
 
   print(option.name, x, y + self.margin, colour)
  end
